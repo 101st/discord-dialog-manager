@@ -42,17 +42,9 @@ class App extends Component {
             </li>
           </ul>
           <Switch>
-{/* 
-            <PrivateRoute path="/">
-              <LoginForm />
-            </PrivateRoute>
- */}
-            <Route path="/login">
-              <LoginForm />
-            </Route>
-            <Route path="/example">
-              <Example />
-            </Route>
+            <Route path="/login" component={LoginForm} />
+            <Route path="/example" component={Example} />
+            <PrivateRoute path="/" component={LoginForm} state={this.state} />
           </Switch>
         </div>
       </Router>
@@ -60,26 +52,13 @@ class App extends Component {
   }
 }
 
-function PrivateRoute(/* { children, ...rest } */) {
+function PrivateRoute({ component: Component, ...rest }) {
   return (
-    <div></div>
-/*     
-    <Route
-      {...rest}
-      render={({ location }) =>
-        this.state.apiKey ? (
-          children
-        ) : (
-            <Redirect
-              to={{
-                pathname: "/login",
-                state: { from: location }
-              }}
-            />
-          )
-      }
-    />
- */    
+    <Route {...rest} render={(props) => (
+      rest.state.apiKey
+        ? <Component {...props} />
+        : <Redirect to='/login' />
+    )} />
   );
 }
 
