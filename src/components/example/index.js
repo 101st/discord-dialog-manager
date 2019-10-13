@@ -61,7 +61,7 @@ class Example extends Component {
         <h1>Clientside Contacts Application</h1>
         <hr />
         <div>
-          <h3>Add Contact Form</h3>
+          <h3>Add Contact Form (Example)</h3>
           <form onSubmit={this.handleSubmit}>
             <input type="text" onChange={this.handleChange} className="form-control" value={this.state.name} /><br />
             <input type="submit" className="btn btn-success" value="ADD" />
