@@ -13,7 +13,15 @@ class LoginForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.setApiKey(this.apiKeyRef.current.value);
-    
+    this.props.history.push('/');
+  }
+
+  componentDidMount() {
+    let apiKey = localStorage.getItem('apiKey');
+    if (apiKey && apiKey.length > 10) {
+      this.props.setApiKey(apiKey);
+      this.props.history.push('/');
+    }
   }
 
   render() {

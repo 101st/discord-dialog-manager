@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actions from './actions';
 
-export default class MainMenu extends Component {
+class MainMenu extends Component {
   state = {}
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -16,22 +18,6 @@ export default class MainMenu extends Component {
         </Menu.Item>
 
         <Menu.Item
-          name='features'
-          active={activeItem === 'features'}
-          onClick={this.handleItemClick}
-        >
-          Features
-        </Menu.Item>
-
-        <Menu.Item
-          name='testimonials'
-          active={activeItem === 'testimonials'}
-          onClick={this.handleItemClick}
-        >
-          Testimonials
-        </Menu.Item>
-
-        <Menu.Item
           name='sign-in'
           active={activeItem === 'sign-in'}
           onClick={this.handleItemClick}
@@ -42,3 +28,17 @@ export default class MainMenu extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    apiKey: state.formsLoginReducer.get('apiKey')
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteApiKey: () => dispatch(actions.deleteApiKey())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenu);
