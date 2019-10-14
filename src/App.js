@@ -5,27 +5,14 @@ import {
   Switch,
   Route,
   Link,
-  Redirect,
-  useHistory,
-  useLocation
+  Redirect
 } from "react-router-dom";
 import './App.css';
 
-import * as contactAction from './actions/contactAction';
-import Example from './components/example';
-
 import LoginForm from './components/forms/login';
+import MainMenu from './components/page/main';
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      apiKey: ''
-    }
-  }
-
   render() {
     return (
       <Router>
@@ -37,14 +24,10 @@ class App extends Component {
             <li>
               <Link to="/login">Login</Link>
             </li>
-            <li>
-              <Link to="/example">Example</Link>
-            </li>
           </ul>
           <Switch>
             <Route path="/login" component={LoginForm} />
-            <Route path="/example" component={Example} />
-            <PrivateRoute path="/" component={LoginForm} state={this.state} />
+            <PrivateRoute path="/" component={MainMenu} apiKey={this.props.apiKey} />
           </Switch>
         </div>
       </Router>
@@ -54,25 +37,18 @@ class App extends Component {
 
 function PrivateRoute({ component: Component, ...rest }) {
   return (
-    <Route {...rest} render={(props) => (
-      rest.state.apiKey
-        ? <Component {...props} />
+    <Route {...rest} render={(props) => {
+      return rest.apiKey
+        ? (<Component {...props} />)
         : <Redirect to='/login' />
-    )} />
+    }} />
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    contacts: state.contacts
+    apiKey: state.formsLoginReducer.get('apiKey')
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createContact: contact => dispatch(contactAction.createContact(contact)),
-    deleteContact: contact => dispatch(contactAction.deleteContact(contact))
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);
