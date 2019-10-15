@@ -11,10 +11,6 @@ export default class MainMenu extends Component {
 
     return (
       <Menu stackable>
-        <Menu.Item>
-          <img src='https://react.semantic-ui.com/logo.png' alt='logo' />
-        </Menu.Item>
-
         <Menu.Item
           name='features'
           active={activeItem === 'features'}

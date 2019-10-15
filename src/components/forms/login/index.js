@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions';
-import { Button, Form, Grid, Header, Image, Segment, Input } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Input } from 'semantic-ui-react';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -13,26 +13,13 @@ class LoginForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.setApiKey(this.apiKeyRef.inputRef.current.value);
-    //this.props.history.push('/');
   }
-
-  /* 
-    componentDidMount() {
-      let apiKey = localStorage.getItem('apiKey');
-      if (apiKey) {
-        this.props.setApiKey(apiKey);
-        this.props.history.push('/');
-      }
-    }
-   */
 
   render() {
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' color='teal' textAlign='center'>
-            <Image src='https://react.semantic-ui.com/logo.png' /> Enter your API Key
-      </Header>
+          <Header as='h2' color='teal' textAlign='center'>Enter your API Key</Header>
           <Form size='large'>
             <Segment stacked>
               <Input

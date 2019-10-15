@@ -11,9 +11,11 @@ import configureStore from './configureStore';
 
 const store = configureStore();
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <div>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </div>
   , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

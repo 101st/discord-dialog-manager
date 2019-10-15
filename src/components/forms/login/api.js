@@ -7,7 +7,6 @@ async function setApiKey(apiKey) {
   }
 }
 
-
 export default {
   setApiKey
 }
