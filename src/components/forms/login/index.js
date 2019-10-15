@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions';
-import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Image, Segment, Input } from 'semantic-ui-react';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -12,17 +12,19 @@ class LoginForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.setApiKey(this.apiKeyRef.current.value);
-    this.props.history.push('/');
+    this.props.setApiKey(this.apiKeyRef.inputRef.current.value);
+    //this.props.history.push('/');
   }
 
-  componentDidMount() {
-    let apiKey = localStorage.getItem('apiKey');
-    if (apiKey && apiKey.length > 10) {
-      this.props.setApiKey(apiKey);
-      this.props.history.push('/');
+  /* 
+    componentDidMount() {
+      let apiKey = localStorage.getItem('apiKey');
+      if (apiKey) {
+        this.props.setApiKey(apiKey);
+        this.props.history.push('/');
+      }
     }
-  }
+   */
 
   render() {
     return (
@@ -33,15 +35,17 @@ class LoginForm extends React.Component {
       </Header>
           <Form size='large'>
             <Segment stacked>
-              <input
-                ref={this.apiKeyRef}
+              <Input
+                fluid
+                ref={ref => this.apiKeyRef = ref}
+                icon='lock'
+                iconPosition='left'
                 placeholder='API Key'
                 type='password'
+                style={{ marginBottom: '10px' }}
               />
 
-              <Button onClick={this.handleSubmit} color='teal' fluid size='large'>
-                Set Api Token
-          </Button>
+              <Button onClick={this.handleSubmit} color='teal' fluid size='large'>Set Api Token</Button>
             </Segment>
           </Form>
         </Grid.Column>
