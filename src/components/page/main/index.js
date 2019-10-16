@@ -21,7 +21,6 @@ class MainPage extends Component {
   render() {
     let { guilds, guildsCount } = this.props;
     guilds = guilds.map(guild => {
-      console.log(guild);
       return (
         <Table.Row key={guild.id}>
           <Table.Cell>{guild.name}</Table.Cell>

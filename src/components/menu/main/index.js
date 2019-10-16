@@ -11,6 +11,7 @@ class MainMenu extends Component {
     switch (name) {
       case 'signout':
         this.props.deleteApiKey();
+        window.location.reload();
         break;
       default:
         break;
