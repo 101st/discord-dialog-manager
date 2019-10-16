@@ -6,3 +6,10 @@ export const getCurrentUserGuilds = (apiKey) => {
     apiKey: apiKey
   }
 }
+
+export const getChannels = (apiKey) => {
+  return {
+    type: constants.GET_CHANNELS_REQUEST,
+    apiKey: apiKey
+  }
+}

@@ -3,6 +3,8 @@ import { Menu, Icon, Popup } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import * as actions from '../../forms/login/actions';
 
+import Stats from '../../page/stats';
+
 class MainMenu extends Component {
   state = {}
 
@@ -20,12 +22,15 @@ class MainMenu extends Component {
 
   render() {
     const { activeItem } = this.state
-    let { apiKey } = this.props;
+    let { apiKey, guildsCount, channelsCount } = this.props;
 
     return (
       <Menu style={{ margin: '0px' }}>
+        <Menu.Menu position='left'>
+          <Stats guildsCount={guildsCount} channelsCount={channelsCount} />
+        </Menu.Menu>
         <Menu.Menu position='right'>
-          <Menu.Item style={{cursor: 'pointer'}}>
+          <Menu.Item>
             <Popup content={apiKey} trigger={<Icon name='key' />} basic on='click' pinned />
           </Menu.Item>
 
@@ -52,7 +57,9 @@ class MainMenu extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    apiKey: state.formsLoginReducer.get('apiKey')
+    apiKey: state.formsLoginReducer.get('apiKey'),
+    guildsCount: state.mainPageReducer.get('guildsCount'),
+    channelsCount: state.mainPageReducer.get('channelsCount')
   }
 };
 

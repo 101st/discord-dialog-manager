@@ -47,8 +47,42 @@ async function searchText(apiKey, guild, params) {
 
 }
 
+async function getChannels(apiKey) {
+  try {
+
+    return axios({
+      method: 'get',
+      url: `${BASE_URL}/users/@me/channels`,
+      headers: {
+        authorization: apiKey
+      }
+    });
+
+  } catch (err) {
+    return err;
+  }
+}
+
+async function getGhannelMessages(apiKey, channel, msgId) {
+  try {
+
+    return axios({
+      method: 'get',
+      url: `${BASE_URL}/channels/${channel.id}/messages?limit=100&before=${msgId}`,
+      headers: {
+        authorization: apiKey
+      }
+    });
+
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
   getCurrentUserGuilds,
   deleteMessage,
-  searchText
+  searchText,
+  getChannels,
+  getGhannelMessages
 }

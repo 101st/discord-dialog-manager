@@ -3,14 +3,14 @@ import { Statistic } from 'semantic-ui-react';
 
 class Stats extends React.Component {
   render() {
-    let { guildsCount } = this.props;
+    let { guildsCount, channelsCount } = this.props;
     const items = [
       { key: 'Guilds', label: 'Guilds', value: guildsCount },
-      { key: 'Comments', label: 'Comments', value: '0' },
-      { key: 'Dialogs', label: 'Dialogs', value: '0' },
+      { key: 'Dialogs', label: 'Dialogs', value: channelsCount },
     ]
     return (
-      <Statistic.Group items={items} />
+      <Statistic size='mini'><Statistic.Group size='mini' items={items} /></Statistic>
+
     )
   }
 }
