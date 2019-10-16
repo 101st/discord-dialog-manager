@@ -10,17 +10,9 @@ import './App.css';
 
 import LoginForm from './components/forms/login';
 import MainMenu from './components/page/main';
-import * as loginFormAction from './components/forms/login/actions';
 import * as notificationActions from './components/notification/actions';
 
 class App extends Component {
-  componentDidMount() {
-    let apiKey = localStorage.getItem('apiKey');
-    if (apiKey) {
-      this.props.setApiKey(apiKey);
-    }
-  }
-
   render() {
     let { notifications } = this.props;
     notifications = notifications.map(notification => {
@@ -72,14 +64,12 @@ function PrivateRoute({ children, ...rest }) {
 
 const mapStateToProps = (state) => {
   return {
-    apiKey: state.formsLoginReducer.get('apiKey'),
-    notifications: state.addNotification.get('notifications')
+    notifications: state.addNotificationReducer.get('notifications')
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setApiKey: apiKey => dispatch(loginFormAction.setApiKey(apiKey)),
     removeNotification: notificationId => dispatch(notificationActions.removeNotification(notificationId))
   }
 };

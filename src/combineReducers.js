@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import formsLoginReducer from './components/forms/login/reducers';
-import addNotification from './components/notification/reducers';
+import addNotificationReducer from './components/notification/reducers';
+import mainPageReducer from './components/page/main/reducers';
 
 export default combineReducers({
   formsLoginReducer: formsLoginReducer,
-  addNotification: addNotification
+  addNotificationReducer: addNotificationReducer,
+  mainPageReducer: mainPageReducer
 });
