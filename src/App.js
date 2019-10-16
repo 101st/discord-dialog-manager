@@ -5,16 +5,25 @@ import {
   Switch,
   Route,
   Redirect
-} from "react-router-dom";
+} from 'react-router-dom';
 import './App.css';
+import history from './history';
 
 import LoginForm from './components/forms/login';
 import MainMenu from './components/page/main';
-import * as actions from './components/notification/actions';
+import * as loginFormAction from './components/forms/login/actions';
+import * as notificationActions from './components/notification/actions';
 
 class App extends Component {
+  componentDidMount() {
+    let apiKey = localStorage.getItem('apiKey');
+    if (apiKey) {
+      this.props.setApiKey(apiKey);
+    }
+  }
+
   render() {
-    let { notifications } = this.props;
+    let { notifications, apiKey } = this.props;
     notifications = notifications.map(notification => {
       setTimeout(() => {
         this.props.removeNotification(notification.id);
@@ -26,31 +35,37 @@ class App extends Component {
           {notification.content}
         </div>
       )
-    })
+    });
     return (
       <div>
         <div className='notification'>
           {notifications}
         </div>
-        < Router >
+        <Router>
           <Switch>
-            <Route path="/login" component={LoginForm} />
-            <PrivateRoute path="/" component={MainMenu} apiKey={this.props.apiKey} />
+            <Route path='/login' {...apiKey} component={LoginForm} />
+            {console.log(apiKey)}
+            <PrivateRoute path='/' {...apiKey} component={MainMenu} />
           </Switch>
-        </Router >
+        </Router>
       </div >
     )
   }
 }
 
 function PrivateRoute({ component: Component, ...rest }) {
-  return (
-    <Route {...rest} render={(props) => {
-      return rest.apiKey
-        ? (<Component {...props} />)
-        : <Redirect to='/login' />
-    }} />
-  );
+  let { apiKey } = rest;
+  if (apiKey && apiKey.length === 59) {
+    return (
+      <Route {...rest} render={props => {
+        return <Component {...props} />
+      }} />
+    )
+  }
+  return (<Redirect to={{
+    pathname: '/login',
+    state: { from: rest.location }
+  }} />);
 }
 
 const mapStateToProps = (state) => {
@@ -62,7 +77,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeNotification: notificationId => dispatch(actions.removeNotification(notificationId))
+    setApiKey: apiKey => dispatch(loginFormAction.setApiKey(apiKey)),
+    removeNotification: notificationId => dispatch(notificationActions.removeNotification(notificationId))
   }
 };
 

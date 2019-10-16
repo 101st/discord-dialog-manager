@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import { Button, Form, Grid, Header, Segment, Input } from 'semantic-ui-react';
+import history from '../../../history';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class LoginForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.setApiKey(this.apiKeyRef.inputRef.current.value);
+    history.push('/');
   }
 
   render() {
@@ -23,6 +25,7 @@ class LoginForm extends React.Component {
           <Form size='large'>
             <Segment stacked>
               <Input
+                value='NDE1NTQ2NTM4NDM0MTAxMjQ5.XYMYrA.5_NSUcXVOqABSDZBa0svRUDPysk'
                 fluid
                 ref={ref => this.apiKeyRef = ref}
                 icon='lock'

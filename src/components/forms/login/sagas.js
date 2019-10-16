@@ -1,12 +1,13 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects';
 import Api from './api';
 const r = () => Math.random().toString(36).substring(2);
 
 function* setApiKey(action) {
   try {
     const apiKey = yield call(Api.setApiKey, action.apiKey);
-    if (apiKey && apiKey.length === 59)
+    if (apiKey && apiKey.length === 59) {
       yield put({ type: "SET_API_KEY_SUCCESS", apiKey: apiKey });
+    }
     else {
       let notificationId = r();
       yield put({

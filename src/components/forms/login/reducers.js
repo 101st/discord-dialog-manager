@@ -11,10 +11,8 @@ export default (state = initialState, action) => {
     case constants.SET_API_KEY_REQUEST:
       return state;
     case constants.SET_API_KEY_SACCESS:
-      console.log(action)
       return state.set('apiKey', action.apiKey);
     case constants.SET_API_KEY_ERROR:
-      console.log(action);
       return state;
 
     default:
