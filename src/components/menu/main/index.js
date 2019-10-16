@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Icon, Popup } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import * as actions from '../../forms/login/actions';
 
@@ -24,8 +24,8 @@ class MainMenu extends Component {
     return (
       <Menu style={{ margin: '0px' }}>
         <Menu.Menu position='right'>
-          <Menu.Item>
-            {apiKey}
+          <Menu.Item style={{cursor: 'pointer'}}>
+            <Popup content={apiKey} trigger={<Icon name='key' />} basic on='click' pinned />
           </Menu.Item>
 
           <Menu.Item
