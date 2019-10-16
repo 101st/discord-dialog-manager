@@ -7,7 +7,6 @@ import {
   Redirect
 } from 'react-router-dom';
 import './App.css';
-import history from './history';
 
 import LoginForm from './components/forms/login';
 import MainMenu from './components/page/main';
@@ -23,7 +22,7 @@ class App extends Component {
   }
 
   render() {
-    let { notifications, apiKey } = this.props;
+    let { notifications } = this.props;
     notifications = notifications.map(notification => {
       setTimeout(() => {
         this.props.removeNotification(notification.id);
@@ -43,9 +42,12 @@ class App extends Component {
         </div>
         <Router>
           <Switch>
-            <Route path='/login' {...apiKey} component={LoginForm} />
-            {console.log(apiKey)}
-            <PrivateRoute path='/' {...apiKey} component={MainMenu} />
+            <Route path='/login'>
+              <LoginForm />
+            </Route>
+            <PrivateRoute path='/' >
+              <MainMenu />
+            </PrivateRoute>
           </Switch>
         </Router>
       </div >
@@ -53,12 +55,12 @@ class App extends Component {
   }
 }
 
-function PrivateRoute({ component: Component, ...rest }) {
-  let { apiKey } = rest;
+function PrivateRoute({ children, ...rest }) {
+  let apiKey = localStorage.getItem('apiKey');
   if (apiKey && apiKey.length === 59) {
     return (
-      <Route {...rest} render={props => {
-        return <Component {...props} />
+      <Route {...rest} render={() => {
+        return children
       }} />
     )
   }

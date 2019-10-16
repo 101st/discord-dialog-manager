@@ -6,12 +6,12 @@ function* setApiKey(action) {
   try {
     const apiKey = yield call(Api.setApiKey, action.apiKey);
     if (apiKey && apiKey.length === 59) {
-      yield put({ type: "SET_API_KEY_SUCCESS", apiKey: apiKey });
+      yield put({ type: 'SET_API_KEY_SUCCESS', apiKey: apiKey });
     }
     else {
       let notificationId = r();
       yield put({
-        type: "ADD_NOTIFICATION_REQUEST",
+        type: 'ADD_NOTIFICATION_REQUEST',
         notification: {
           id: notificationId,
           header: 'API KEY ERROR',
@@ -21,15 +21,29 @@ function* setApiKey(action) {
         }
       });
     }
-  } catch (e) {
-    yield put({ type: "SET_API_KEY_ERROR", message: e });
+  } catch (error) {
+    yield put({ type: 'SET_API_KEY_ERROR', message: error });
   }
 }
 
 function* formsLoginSagas() {
-  yield takeLatest("SET_API_KEY_REQUEST", setApiKey);
+  yield takeLatest('SET_API_KEY_REQUEST', setApiKey);
+}
+
+function* deleteApiKey(action) {
+  try {
+    localStorage.removeItem('apiKey');
+    yield put({ type: 'DELETE_API_KEY_SUCCESS' });
+  } catch (error) {
+    yield put({ type: 'DELETE_API_KEY_ERROR', message: error });
+  }
+}
+
+function* deleteApiKeySaga() {
+  yield takeLatest('DELETE_API_KEY_REQUEST', deleteApiKey);
 }
 
 export default [
-  formsLoginSagas
+  formsLoginSagas,
+  deleteApiKeySaga
 ];

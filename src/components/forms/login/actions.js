@@ -6,3 +6,9 @@ export const setApiKey = (apiKey) => {
     apiKey: apiKey
   }
 }
+
+export const deleteApiKey = () => {
+  return {
+    type: constants.DELETE_API_KEY_REQUEST
+  }
+}

@@ -15,6 +15,13 @@ export default (state = initialState, action) => {
     case constants.SET_API_KEY_ERROR:
       return state;
 
+    case constants.DELETE_API_KEY_REQUEST:
+      return state;
+    case constants.DELETE_API_KEY_SACCESS:
+      return state.set('apiKey', '');
+    case constants.DELETE_API_KEY_ERROR:
+      return state;
+
     default:
       return state;
   }
