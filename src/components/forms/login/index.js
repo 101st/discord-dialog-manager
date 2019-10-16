@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
           <Form size='large'>
             <Segment stacked>
               <Input
-                value='NDE1NTQ2NTM4NDM0MTAxMjQ5.XYMYrA.5_NSUcXVOqABSDZBa0svRUDPysk'
+                value=''
                 fluid
                 ref={ref => this.apiKeyRef = ref}
                 icon='lock'
