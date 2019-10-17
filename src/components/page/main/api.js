@@ -35,11 +35,10 @@ async function deleteMessage(apiKey, channel = 0, msgId = 0) {
   }
 }
 
-async function searchText(apiKey, guild, params) {
-
+async function searchGuildText(apiKey, guildId, params) {
   return axios({
     method: 'get',
-    url: `${BASE_URL}/guilds/${guild}/messages/search?${querystring.stringify(params)}`,
+    url: `${BASE_URL}/guilds/${guildId}/messages/search?${querystring.stringify(params)}`,
     headers: {
       authorization: apiKey
     }
@@ -58,8 +57,8 @@ async function getChannels(apiKey) {
       }
     });
 
-  } catch (err) {
-    return err;
+  } catch (error) {
+    return error;
   }
 }
 
@@ -74,15 +73,49 @@ async function getGhannelMessages(apiKey, channel, msgId) {
       }
     });
 
-  } catch (err) {
-    return err;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function getUser(apiKey, userId) {
+  try {
+
+    return axios({
+      method: 'get',
+      url: `${BASE_URL}/users/${userId}/profile`,
+      headers: {
+        authorization: apiKey
+      }
+    });
+
+  } catch (error) {
+    return error;
+  }
+}
+
+async function getMe(apiKey) {
+  try {
+
+    return axios({
+      method: 'get',
+      url: `${BASE_URL}/users/@me`,
+      headers: {
+        authorization: apiKey
+      }
+    });
+
+  } catch (error) {
+    return error;
   }
 }
 
 export default {
   getCurrentUserGuilds,
   deleteMessage,
-  searchText,
+  searchGuildText,
   getChannels,
-  getGhannelMessages
+  getGhannelMessages,
+  getUser,
+  getMe
 }

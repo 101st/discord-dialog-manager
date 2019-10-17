@@ -5,7 +5,9 @@ const initialState = fromJS({
   guilds: [],
   guildsCount: 0,
   channels: [],
-  channelsCount: 0
+  channelsCount: 0,
+  messages: [],
+  me: {}
 });
 
 export default (state = initialState, action) => {
@@ -28,6 +30,30 @@ export default (state = initialState, action) => {
         .set('channels', action.channels)
         .set('channelsCount', action.channels.length);
     case constants.GET_CHANNELS_ERROR:
+      return state;
+
+    case constants.SEARCH_GUILD_TEXT_REQUEST:
+      return state;
+    case constants.SEARCH_GUILD_TEXT_SACCESS:
+      return state
+        .set('messages', action.messages.data);
+    case constants.SEARCH_GUILD_TEXT_ERROR:
+      return state;
+
+    case constants.GET_USER_REQUEST:
+      return state;
+    case constants.GET_USER_SACCESS:
+      return state
+        .set('user', action.user);
+    case constants.GET_USER_ERROR:
+      return state;
+
+    case constants.GET_ME_REQUEST:
+      return state;
+    case constants.GET_ME_SACCESS:
+      return state
+        .set('me', action.me.data);
+    case constants.GET_ME_ERROR:
       return state;
 
     default:
