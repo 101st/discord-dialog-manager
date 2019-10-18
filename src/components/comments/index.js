@@ -1,22 +1,34 @@
 import React from 'react';
-import { Comment, Header } from 'semantic-ui-react';
+import { Comment, Header, Image } from 'semantic-ui-react';
+import Utils from '../../utils';
+
+function getImages(array) {
+  return array.map(item => {
+    return <Image key={item.id} src={item.url} />
+  })
+}
 
 class GuildTable extends React.Component {
   render() {
     let { messages, total_results } = this.props.messages;
     messages = messages ? messages.flat(1) : [];
     messages = messages.map(message => {
-      let { id, content } = message;
+      let { id, content, author, timestamp, attachments } = message;
+      let { discriminator, username } = author;
+      let date = Utils.getFormattedDate(new Date(timestamp));
       return (
-        <Comment key={message.id}>
-          <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+        <Comment key={`${id}_${Utils.generateRandomString(3)}`}>
+          <Comment.Avatar src={author.avatar ?
+            <Image src={`https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=128`} rounded size='mini' /> :
+            <Image src={`https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png`} rounded size='mini' />
+          } />
           <Comment.Content>
-            <Comment.Author as='a'>Matt</Comment.Author>
+            <Comment.Author as='a'>{`${username}#${discriminator}`}</Comment.Author>
             <Comment.Metadata>
-              <div>Today at 5:42PM</div>
+              <div>{date}</div>
             </Comment.Metadata>
             <Comment.Text>
-              {content}
+              {content ? content : getImages(attachments)}
             </Comment.Text>
           </Comment.Content>
         </Comment>
