@@ -36,7 +36,7 @@ class GuildTable extends React.Component {
     });
     return (
       <Comment.Group>
-        <Header as='h2'>Comments</Header>
+        <Header as='h2'>Comments {total_results && `/ ${total_results}`}</Header>
         {messages}
       </Comment.Group>
     )
