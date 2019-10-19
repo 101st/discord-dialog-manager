@@ -19,8 +19,8 @@ class GuildTable extends React.Component {
       return (
         <Comment key={`${id}_${Utils.generateRandomString(3)}`}>
           <Comment.Avatar src={author.avatar ?
-            <Image src={`https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=128`} rounded size='mini' /> :
-            <Image src={`https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png`} rounded size='mini' />
+            `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=128` :
+            `https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png`
           } />
           <Comment.Content>
             <Comment.Author as='a'>{`${username}#${discriminator}`}</Comment.Author>
