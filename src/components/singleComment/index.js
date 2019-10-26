@@ -10,7 +10,8 @@ function getImages(array) {
 
 class SingleComment extends React.Component {
   render() {
-    let { id, content, author, timestamp, attachments } = this.props.message;
+    let { selected } = this.props;
+    let { id, content, author, timestamp, attachments, hit } = this.props.comment;
     let { discriminator, username } = author;
     let date = Utils.getFormattedDate(new Date(timestamp));
     return (

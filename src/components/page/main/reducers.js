@@ -6,7 +6,8 @@ const initialState = fromJS({
   guildsCount: 0,
   channels: [],
   channelsCount: 0,
-  messages: [],
+  commentsGroupsArray: [],
+  commentsCount: 0,
   me: {}
 });
 
@@ -36,7 +37,8 @@ export default (state = initialState, action) => {
       return state;
     case constants.SEARCH_GUILD_TEXT_SACCESS:
       return state
-        .set('messages', action.messages.data);
+        .set('commentsCount', action.messages.data.total_results)
+        .set('commentsGroupsArray', action.messages.data.messages);
     case constants.SEARCH_GUILD_TEXT_ERROR:
       return state;
 

@@ -1,28 +1,51 @@
 import React from 'react';
-import { Comment, Header, Segment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Comment, Segment } from 'semantic-ui-react';
+import * as actions from './actions';
+
 import SingleComment from '../singleComment';
 
-function getGroupMessages(messagesGroup, key) {
-  return (
-    <Segment key={key}>
-      <Comment.Group size='mini'>
-        {messagesGroup.map((message, key) => <SingleComment key={key} message={message} />)}
-      </Comment.Group>
-    </Segment>
-  );
-}
-
 class CommentsGroup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedGroup: null
+    }
+  }
   render() {
-    let { messages: messagesGroupsArray, total_results } = this.props.messages;
-    messagesGroupsArray = messagesGroupsArray ? messagesGroupsArray : [];
+    let { commentsGroup, commentsGroupId, selectedGroupId, setCommentsGroup } = this.props;
     return (
-      <div>
-        <Header as='h2'>Comments {total_results && `/ ${total_results}`}</Header>
-        {messagesGroupsArray.map((messagesGroup, key) => getGroupMessages(messagesGroup, key))}
-      </div>
+      <Segment key={commentsGroupId} onClick={() => setCommentsGroup(commentsGroupId)}>
+        <Comment.Group size='mini'>
+          {commentsGroup.map((comment, key) => {
+            if (commentsGroupId === selectedGroupId) {
+              return <SingleComment
+                key={key}
+                comment={comment}
+              />
+            } else {
+              return comment.hit && <SingleComment
+                key={key}
+                comment={comment}
+              />
+            }
+          })}
+        </Comment.Group>
+      </Segment>
     )
   }
 }
 
-export default CommentsGroup;
+const mapStateToProps = (state) => {
+  return {
+    selectedGroupId: state.commentsGroupReducer.get('selectedGroupId')
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCommentsGroup: id => dispatch(actions.setCommentsGroup(id))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentsGroup);

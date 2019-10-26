@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import * as loginFormActions from '../../forms/login/actions';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 
 import MainMenu from '../../menu/main';
 import GuildTable from '../../guildTable';
@@ -20,6 +20,8 @@ class MainPage extends Component {
   }
 
   render() {
+    let { commentsGroupsArray, commentsCount } = this.props;
+    commentsGroupsArray = commentsGroupsArray ? commentsGroupsArray : []
     return (
       <div>
         <MainMenu />
@@ -37,7 +39,13 @@ class MainPage extends Component {
               marginTop: '5px',
               width: 'auto'
             }}>
-              <CommentsGroup {...this.props} />
+              <Header as='h2'>Comments {commentsCount && `/ ${commentsCount}`}</Header>
+              {commentsGroupsArray.map((commentsGroup, key) =>
+                <CommentsGroup
+                  key={key}
+                  commentsGroupId={key}
+                  commentsGroup={commentsGroup}
+                />)}
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -51,7 +59,8 @@ const mapStateToProps = (state) => {
     apiKey: state.formsLoginReducer.get('apiKey'),
     guilds: state.mainPageReducer.get('guilds'),
     channels: state.mainPageReducer.get('channels'),
-    messages: state.mainPageReducer.get('messages'),
+    commentsGroupsArray: state.mainPageReducer.get('commentsGroupsArray'),
+    commentsCount: state.mainPageReducer.get('commentsCount'),
     me: state.mainPageReducer.get('me'),
     user: state.mainPageReducer.get('user')
   }
