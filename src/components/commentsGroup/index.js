@@ -4,9 +4,9 @@ import SingleComment from '../singleComment';
 
 function getGroupMessages(messagesGroup, key) {
   return (
-    <Segment>
-      <Comment.Group key={key} size='mini'>
-        {messagesGroup.map(message => <SingleComment message={message} />)}
+    <Segment key={key}>
+      <Comment.Group size='mini'>
+        {messagesGroup.map((message, key) => <SingleComment key={key} message={message} />)}
       </Comment.Group>
     </Segment>
   );
@@ -19,9 +19,7 @@ class CommentsGroup extends React.Component {
     return (
       <div>
         <Header as='h2'>Comments {total_results && `/ ${total_results}`}</Header>
-        {messagesGroupsArray.map((messagesGroup, key) => {
-          return getGroupMessages(messagesGroup, key);
-        })}
+        {messagesGroupsArray.map((messagesGroup, key) => getGroupMessages(messagesGroup, key))}
       </div>
     )
   }
