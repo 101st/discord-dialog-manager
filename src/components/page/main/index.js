@@ -7,7 +7,7 @@ import { Grid } from 'semantic-ui-react';
 import MainMenu from '../../menu/main';
 import GuildTable from '../../guildTable';
 import ChannelTable from '../../channelTable';
-import Comments from '../../comments';
+import Comments from '../../commentsGroup';
 
 class MainPage extends Component {
 
