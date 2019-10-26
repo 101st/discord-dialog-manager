@@ -7,7 +7,7 @@ import { Grid } from 'semantic-ui-react';
 import MainMenu from '../../menu/main';
 import GuildTable from '../../guildTable';
 import ChannelTable from '../../channelTable';
-import Comments from '../../commentsGroup';
+import CommentsGroup from '../../commentsGroup';
 
 class MainPage extends Component {
 
@@ -37,7 +37,7 @@ class MainPage extends Component {
               marginTop: '5px',
               width: 'auto'
             }}>
-              <Comments {...this.props} />
+              <CommentsGroup {...this.props} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
