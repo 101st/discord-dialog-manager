@@ -4,13 +4,19 @@ import Utils from '../../utils';
 
 function getImages(array) {
   return array.map(item => {
-    return <Image key={item.id} src={item.url} size='medium' />
+    return <Image key={item.id} src={item.url} size='medium' />;
+  })
+}
+
+function getEmbeds(array) {
+  return array.map(item => {
+    return JSON.stringify(item);
   })
 }
 
 class SingleComment extends React.Component {
   render() {
-    let { id, content, author, timestamp, attachments } = this.props.comment;
+    let { id, content, author, timestamp, attachments, embeds } = this.props.comment;
     let { discriminator, username } = author;
     let date = Utils.getFormattedDate(new Date(timestamp));
     return (
@@ -26,7 +32,7 @@ class SingleComment extends React.Component {
           </Comment.Metadata>
           <Comment.Text>
             {content ? content : getImages(attachments)}
-            {content.length === 0 && '...'}
+            {content.length === 0 && getEmbeds(embeds)}
           </Comment.Text>
         </Comment.Content>
       </Comment>
