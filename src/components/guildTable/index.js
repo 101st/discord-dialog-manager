@@ -14,7 +14,7 @@ class GuildTable extends React.Component {
       {
         author_id: this.props.me.id,
         include_nsfw: true,
-        offset: 0
+        offset: this.props.commentsCount
       }
     )
   }

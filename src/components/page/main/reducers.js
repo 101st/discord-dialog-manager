@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
     case constants.SEARCH_GUILD_TEXT_SACCESS:
       return state
         .set('commentsCount', action.messages.data.total_results)
-        .set('commentsGroupsArray', action.messages.data.messages);
+        .update('commentsGroupsArray', arr => arr.concat(action.messages.data.messages));
     case constants.SEARCH_GUILD_TEXT_ERROR:
       return state;
 
