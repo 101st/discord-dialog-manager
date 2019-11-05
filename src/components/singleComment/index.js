@@ -1,5 +1,5 @@
 import React from 'react';
-import { Comment, Image } from 'semantic-ui-react';
+import { Comment, Image, Icon } from 'semantic-ui-react';
 import Utils from '../../utils';
 
 function getImages(array) {
@@ -10,8 +10,7 @@ function getImages(array) {
 
 class SingleComment extends React.Component {
   render() {
-    let { selected } = this.props;
-    let { id, content, author, timestamp, attachments, hit } = this.props.comment;
+    let { id, content, author, timestamp, attachments } = this.props.comment;
     let { discriminator, username } = author;
     let date = Utils.getFormattedDate(new Date(timestamp));
     return (
@@ -21,12 +20,13 @@ class SingleComment extends React.Component {
           `https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png`
         } />
         <Comment.Content>
-          <Comment.Author as='a'>{`${username}#${discriminator}`}</Comment.Author>
+          <Comment.Author as='a'>{`${username}#${discriminator}`}{author.bot && <Icon name='android' />}</Comment.Author>
           <Comment.Metadata>
             <div>{date}</div>
           </Comment.Metadata>
           <Comment.Text>
             {content ? content : getImages(attachments)}
+            {content.length === 0 && '...'}
           </Comment.Text>
         </Comment.Content>
       </Comment>
